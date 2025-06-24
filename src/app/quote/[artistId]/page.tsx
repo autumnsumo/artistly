@@ -9,8 +9,11 @@ export const metadata: Metadata = {
   description: "Request a quote for an artist.",
 };
 
-export default async function QuotePage({ params }: { params: { artistId: string } }) {
-  // No async operation needed, but async satisfies the warning
+export default function QuotePage({
+  params,
+}: {
+  params: { artistId: string };
+}) {
   const artist = mockArtists.find((a) => a.id === params.artistId);
 
   if (!artist) {
