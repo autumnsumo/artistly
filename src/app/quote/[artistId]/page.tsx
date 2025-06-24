@@ -9,11 +9,12 @@ export const metadata: Metadata = {
   description: "Request a quote for an artist.",
 };
 
-export default function QuotePage({
+export default async function QuotePage({
   params,
 }: {
   params: { artistId: string };
 }) {
+  // Resolve params synchronously since mockArtists is static
   const artist = mockArtists.find((a) => a.id === params.artistId);
 
   if (!artist) {
