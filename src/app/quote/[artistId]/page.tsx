@@ -1,34 +1,22 @@
-// src/app/quote/[artistId]/page.tsx
-import { notFound } from "next/navigation";
-import { QuoteForm } from "@/components/QuoteForm";
-import { mockArtists } from "@/lib/data";
+import { Suspense } from "react";
+import { ArtistsClient } from "@/components/ArtistsClient";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Artistly - Request Quote",
-  description: "Request a quote for an artist.",
+  title: "Artistly - Our Artists",
+  description: "Explore our talented artists for your events.",
 };
 
-export default async function QuotePage({
-  params,
-}: {
-  params: { artistId: string };
-}) {
-  // Resolve params synchronously since mockArtists is static
-  const artist = mockArtists.find((a) => a.id === params.artistId);
-
-  if (!artist) {
-    notFound();
-  }
-
+export default function ArtistsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <main className="flex-1 container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-          Request Quote for {artist.name}
-        </h1>
-        <QuoteForm />
-      </main>
+      <Header />
+      <Suspense fallback={<div className="text-gray-700 dark:text-gray-300">Loading artists...</div>}>
+        <ArtistsClient />
+      </Suspense>
+      <Footer />
     </div>
   );
 }
