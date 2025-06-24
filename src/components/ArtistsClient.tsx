@@ -1,12 +1,11 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import { ArtistCard } from "@/components/ArtistCard";
 import { useArtists } from "@/lib/ArtistContext";
 import { useSearchParams } from "next/navigation";
-import FilterBlock from "@/components/FilterBlock";
-
-
+import FilterBlock from "@/components/FilterBlock"
 
 export function ArtistsClient() {
   const artists = useArtists();
