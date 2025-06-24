@@ -3,10 +3,7 @@
 
 import { memo, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// Removed useRouter import since it's unused
-// import { useRouter } from "next/navigation";
 
 interface QuoteFormData {
   eventDate: string;
@@ -17,20 +14,23 @@ interface QuoteFormData {
 
 const QuoteForm = memo(() => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<QuoteFormData>();
-  // Removed router variable
   const [success, setSuccess] = useState(false);
 
   const onSubmit: SubmitHandler<QuoteFormData> = (data) => {
-    console.log("Quote Request Submitted:", data);
-    // Simulate API call or data submission
+    console.log("Form submitted with data:", data); // Debug output
     setSuccess(true);
-    reset();
-    // Uncomment if redirect is desired
-    // router.push("/quote/confirmation");
+    reset(); // Clear form fields
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault(); // Explicitly prevent default form submission
+        handleSubmit(onSubmit)(e); // Manually trigger the handler
+        console.log("Form submission prevented, calling handler"); // Debug step
+      }}
+      className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+    >
       {success && (
         <div className="text-green-600 dark:text-green-400 text-center mb-4">
           Quote request submitted successfully!
@@ -85,9 +85,16 @@ const QuoteForm = memo(() => {
           className="mt-1 w-full h-24 p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-md"
         />
       </div>
-      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white">
+      <button
+        type="submit"
+        className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white py-2 rounded-md"
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent event bubbling
+          console.log("Button clicked"); // Debug click
+        }}
+      >
         Submit Request
-      </Button>
+      </button>
     </form>
   );
 });
