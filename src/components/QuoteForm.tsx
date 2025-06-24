@@ -5,7 +5,8 @@ import { memo, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+// Removed useRouter import since it's unused
+// import { useRouter } from "next/navigation";
 
 interface QuoteFormData {
   eventDate: string;
@@ -16,15 +17,15 @@ interface QuoteFormData {
 
 const QuoteForm = memo(() => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<QuoteFormData>();
-  const router = useRouter();
+  // Removed router variable
   const [success, setSuccess] = useState(false);
 
   const onSubmit: SubmitHandler<QuoteFormData> = (data) => {
     console.log("Quote Request Submitted:", data);
     // Simulate API call or data submission
     setSuccess(true);
-    reset(); // Clear the form
-    // Uncomment the next line if you want to redirect to a confirmation page
+    reset();
+    // Uncomment if redirect is desired
     // router.push("/quote/confirmation");
   };
 

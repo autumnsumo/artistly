@@ -1,4 +1,6 @@
 // src/app/quote/confirmation/page.tsx
+import Link from "next/link";
+
 export default function ConfirmationPage() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -10,9 +12,9 @@ export default function ConfirmationPage() {
           Thank you! Your quote request has been submitted successfully. We will get back to you soon.
         </p>
         <div className="mt-6 text-center">
-          <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+          <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
             Return to Home
-          </a>
+          </Link>
         </div>
       </main>
     </div>
